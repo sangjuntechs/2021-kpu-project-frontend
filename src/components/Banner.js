@@ -2,16 +2,16 @@ import React from "react"
 import styled from "styled-components"
 
 const Container = styled.div`
-    height: 70vh;
+    height: 500px;
     border: 2px solid red;
 `
 
-function Review() {
+function Banner() {
     return (
         <Container>
-            User review section
+            Banner Section
         </Container>
     )
 }
 
-export default Review;
+export default Banner;
