@@ -13,8 +13,7 @@ const Container = styled.div`
 function Footer() {
     return (
         <Container>
-            <p>All copyright 다향</p>
-            <p>2021-</p>
+            footer Section
         </Container>
     )
 }
