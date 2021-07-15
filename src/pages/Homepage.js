@@ -8,12 +8,11 @@ import RequestP from "../components/RequestP";
 import Banner from "../components/Banner";
 import NewProducts from "../components/NewProducts";
 import Footer from "../components/Footer";
-import Login from "../Routes/Login";
 
 const HomePage = () => {
+
   return (
     <>
-      <Login />
       <h1>다향</h1>
       <Banner></Banner>
       <Individual></Individual>
