@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import HomePage from "../pages/Homepage";
 import styled from "styled-components";
 import { IoChatbubbleSharp } from "react-icons/io5";
-import Axios from 'axios';
+import Axios from "axios";
+
 
 const AllConatiner = styled.div`
   display: flex;
@@ -23,7 +24,6 @@ const LoginContainer = styled.div`
   width: 30vw;
   height: 60vh;
   align-items: center;
-  border: 2px solid gray;
   flex-direction: column;
   border-radius: 15px;
   box-shadow: 2px 4px 8px darkgray;
@@ -60,7 +60,7 @@ const TextBox = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 30px;
-  margin-top:100px;
+  margin-top: 100px;
 `;
 
 const TitleText = styled.div`
@@ -72,6 +72,17 @@ const Text = styled.div`
   font-size: 14px;
   margin-top: 15px;
 `;
+
+const ProfileBox = styled.div`
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  top:0;
+  width:100vw;
+  height:70px;
+  background-color: rgba(255,255,255,0.8);
+`
 
 const Login = () => {
   const [token, setToken] = useState([]);
@@ -105,14 +116,19 @@ const Login = () => {
           url: "/v2/user/me",
           success: (res) => {
             setToken(window.Kakao.Auth.getAccessToken());
-            console.log(res.kakao_account, '프로필 ㅋㅋ')
-            Axios.post('http://',{
-              age_range: res.kakao_account.age_range,
-              birthday: res.kakao_account.birthday,
-              email: res.kakao_account.email,
-              nickname: res.kakao_account.profile.nickname,
-              gender: res.kakao_account.gender,
-            })
+            const AGE_RANGE = res.kakao_account.age_range;
+            const BIRTHDAY = res.kakao_account.birthday;
+            const EMAIL = res.kakao_account.email;
+            const NICK_NAME = res.kakao_account.profile.nickname;
+            const GENDER = res.kakao_account.gender;
+
+            Axios.post("http://3.35.238.45/register", {
+              nickname: NICK_NAME,
+              age_range: AGE_RANGE,
+              birth: BIRTHDAY,
+              email: EMAIL,
+              gender: GENDER,
+            }).then(console.log("success userinfo save db.."));
           },
         });
       },
@@ -138,10 +154,12 @@ const Login = () => {
     <>
       {token ? (
         <>
+        <ProfileBox>
           <button onClick={KakaoLogout}>로그아웃</button>
           {userName}
           <ProfileImg src={userImage} alt="유저 얼굴" />
-          <HomePage />
+        </ProfileBox>
+        <HomePage />
         </>
       ) : (
         <AllConatiner>
@@ -159,7 +177,9 @@ const Login = () => {
               </Text>
               <Text>편의성을 위해 다향은 카카오 간편 로그인만 가능합니다.</Text>
             </TextBox>
-            <KakaoButton onClick={KakaoLogin}><IoChatbubbleSharp fontSize='16px'/> 카카오로 로그인</KakaoButton>
+            <KakaoButton onClick={KakaoLogin}>
+              <IoChatbubbleSharp fontSize="16px" /> 카카오로 로그인
+            </KakaoButton>
           </LoginContainer>
         </AllConatiner>
       )}
