@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HomePage from "../pages/Homepage";
 import styled from "styled-components";
 import { IoChatbubbleSharp } from "react-icons/io5";
+import Axios from 'axios';
 
 const AllConatiner = styled.div`
   display: flex;
@@ -104,6 +105,14 @@ const Login = () => {
           url: "/v2/user/me",
           success: (res) => {
             setToken(window.Kakao.Auth.getAccessToken());
+            console.log(res.kakao_account, '프로필 ㅋㅋ')
+            Axios.post('http://',{
+              age_range: res.kakao_account.age_range,
+              birthday: res.kakao_account.birthday,
+              email: res.kakao_account.email,
+              nickname: res.kakao_account.profile.nickname,
+              gender: res.kakao_account.gender,
+            })
           },
         });
       },
