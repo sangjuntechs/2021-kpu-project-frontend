@@ -3,7 +3,8 @@ import HomePage from "../pages/Homepage";
 import styled from "styled-components";
 import { IoChatbubbleSharp } from "react-icons/io5";
 import Axios from "axios";
-
+import Modal from "react-modal";
+import ProdUpload from "../components/ProdUpload";
 
 const AllConatiner = styled.div`
   display: flex;
@@ -78,17 +79,43 @@ const ProfileBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  top:0;
-  width:100vw;
-  height:70px;
-  background-color: rgba(255,255,255,0.8);
+  top: 0;
+  width: 100vw;
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+`;
+
+const ProfileNameBox = styled.div`
+  display:flex;
+  flex-direction: column;
+  font-size: 12px;
 `
 
+const ModalCloseBtn = styled.button`
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  top:0px;
+  margin: 10px;
+  font-size: 18px;
+`;
+
 const Login = () => {
-  const [token, setToken] = useState([]);
+  const [token, setToken] = useState([false]);
   const [userName, setUserName] = useState([]);
   const [userImage, setUserImage] = useState([]);
+  const [admin, setAdmin] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
+  const modalOpen = () => {
+    setOpenModal(true);
+  };
+
+  const modalClose = () => {
+    setOpenModal(false);
+  };
   useEffect(() => {
     if (!window.Kakao.Auth.getAccessToken()) {
       setToken(null);
@@ -102,11 +129,19 @@ const Login = () => {
         setToken(window.Kakao.Auth.getAccessToken());
         setUserName(res.kakao_account.profile.nickname);
         setUserImage(res.kakao_account.profile.profile_image_url);
+        if (
+          res.kakao_account.email === "devjun0421@gmail.com" ||
+          res.kakao_account.email === "smg0403@naver.com"
+        ) {
+          setAdmin(true);
+        } else {
+          setAdmin(false);
+        }
       },
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, []);
   const KakaoLogin = () => {
     window.Kakao.Auth.login({
       scope:
@@ -122,7 +157,7 @@ const Login = () => {
             const NICK_NAME = res.kakao_account.profile.nickname;
             const GENDER = res.kakao_account.gender;
 
-            Axios.post("http://3.35.238.45/register", {
+            Axios.post("http://3.34.72.172/register", {
               nickname: NICK_NAME,
               age_range: AGE_RANGE,
               birth: BIRTHDAY,
@@ -154,12 +189,20 @@ const Login = () => {
     <>
       {token ? (
         <>
-        <ProfileBox>
-          <button onClick={KakaoLogout}>로그아웃</button>
-          {userName}
-          <ProfileImg src={userImage} alt="유저 얼굴" />
-        </ProfileBox>
-        <HomePage />
+          <ProfileBox>
+            {admin ? <button onClick={modalOpen}>제품 등록</button> : ""}
+            <button onClick={KakaoLogout}>로그아웃</button>
+            <ProfileNameBox>
+            <p>{userName}</p>
+            <p>{admin ? "다향의 관리자입니다." : ""}</p>
+            </ProfileNameBox>
+            <ProfileImg src={userImage} alt="유저 얼굴" />
+          </ProfileBox>
+          <HomePage />
+          <Modal isOpen={openModal} overlayClassName="Overlay" ariaHideApp={false}>
+          <ModalCloseBtn onClick={modalClose}>❌</ModalCloseBtn>
+            <ProdUpload />
+          </Modal>
         </>
       ) : (
         <AllConatiner>

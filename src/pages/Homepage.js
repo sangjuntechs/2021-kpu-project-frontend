@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import Review from "../components/Review";
 import Individual from "../components/Individual";
 import ManyReview from "../components/ManyReview";
@@ -15,12 +15,14 @@ import Logo from "../Img/dahyangLogo.png";
 const PosterImg = styled.img`
   height: 800px;
   width: 100%;
+  z-index: 30;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 50px;
 `
 
 const LogoImg = styled.img`
@@ -40,10 +42,12 @@ const ModalCloseBtn = styled.button`
 
 const HomePage = () => {
   const [modalOpen, setModalOpen] = useState(true);
+  
 
   const modalClose = () => {
     setModalOpen(false);
   };
+
   return (
     <>
     <Header>
