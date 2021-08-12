@@ -10,7 +10,7 @@ const AllConatiner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 100vh;
 `;
 
 const LoginImg = styled.img`
@@ -53,6 +53,7 @@ const ProfileImg = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 20px;
+  margin:10px;
 `;
 
 const TextBox = styled.div`
@@ -102,8 +103,52 @@ const ModalCloseBtn = styled.button`
   font-size: 18px;
 `;
 
+const Button = styled.button`
+  background-color: #e7e7e7; /* Green */
+  border: none;
+  color: black;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin:10px;
+  font-weight:600;
+  border-radius:5px;
+  cursor:pointer;
+  :hover {
+    opacity: 0.7;
+  }
+`
+
+const ProdButton = styled.button`
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: black;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin:10px;
+  font-weight:600;
+  border-radius:5px;
+  margin-right:0;
+  cursor:pointer;
+  :hover {
+    opacity: 0.7;
+  }
+`
+
+const Highlight = styled.p`
+  font-weight: 600;
+  background-color: yellow;
+  display:inline;
+  font-size: 14px;
+`
+
 const Login = () => {
-  const [token, setToken] = useState([false]);
+  const [token, setToken] = useState(null);
   const [userName, setUserName] = useState([]);
   const [userImage, setUserImage] = useState([]);
   const [admin, setAdmin] = useState(false);
@@ -141,7 +186,7 @@ const Login = () => {
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
   const KakaoLogin = () => {
     window.Kakao.Auth.login({
       scope:
@@ -190,10 +235,10 @@ const Login = () => {
       {token ? (
         <>
           <ProfileBox>
-            {admin ? <button onClick={modalOpen}>제품 등록</button> : ""}
-            <button onClick={KakaoLogout}>로그아웃</button>
+            {admin ? <ProdButton onClick={modalOpen}>제품 등록</ProdButton> : ""}
+            <Button onClick={KakaoLogout}>로그아웃</Button>
             <ProfileNameBox>
-            <p>{userName}</p>
+            <p><Highlight>{userName}</Highlight>님 반갑습니다.</p>
             <p>{admin ? "다향의 관리자입니다." : ""}</p>
             </ProfileNameBox>
             <ProfileImg src={userImage} alt="유저 얼굴" />

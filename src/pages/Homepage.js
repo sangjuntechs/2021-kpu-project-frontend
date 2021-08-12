@@ -14,7 +14,7 @@ import Logo from "../Img/dahyangLogo.png";
 
 const PosterImg = styled.img`
   height: 800px;
-  width: 100%;
+  width: 120%;
   z-index: 30;
 `;
 
@@ -35,8 +35,9 @@ const ModalCloseBtn = styled.button`
   all: unset;
   cursor: pointer;
   position: absolute;
-  right: 0px;
-  margin: 10px;
+  top:0;
+  right:-6.3rem;
+  margin:10px;
   font-size: 18px;
 `;
 

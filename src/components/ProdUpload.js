@@ -6,6 +6,8 @@ import styled from "styled-components";
 const FormContainer = styled.div`
   display: flex;
   height: 90%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TextContainer = styled.div`
@@ -13,51 +15,54 @@ const TextContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 30%;
+  width: 40%;
 `;
 
 const TextInput = styled.input`
   padding: 5px;
-  margin:5px;
+  margin: 5px;
 `;
 
 const TextArea = styled.textarea`
-    padding: 5px;
-    width:80%;
-    height: 10%;
-    margin:5px;
-`
+  padding: 5px;
+  width: 80%;
+  height: 10%;
+  margin: 5px;
+`;
 
 const Button = styled.button`
-    margin:10px;
-    cursor: pointer;
-`
+  margin: 10px;
+  cursor: pointer;
+`;
 
 const ProdUpload = () => {
-  const [pictures, setPictures] = useState([]);
-  const [prodName, setProdName] = useState('');
-  const [prodDetail, setProdDetail] = useState('');
-  const [prodComponent, setProdComponent] = useState('');
-  const [price, setPrice] = useState('');
-  const [sLevel, setSlevel] = useState('');
-  const [userAge, setUserAge] = useState('');
+  const [pictures, setPictures] = useState();
+  const [prodName, setProdName] = useState("");
+  const [prodDetail, setProdDetail] = useState("");
+  const [prodComponent, setProdComponent] = useState("");
+  const [price, setPrice] = useState("");
+  const [sLevel, setSlevel] = useState("");
+  const [userAge, setUserAge] = useState("");
 
   const onDrop = (picture) => {
-    setPictures([...pictures, picture]);
+    setPictures(picture[0])
   };
 
   console.log(pictures)
+  
+  const formData = new FormData();
+  formData.append("image", pictures);
+  formData.append("name", prodName);
+  formData.append("detail", prodDetail);
+  formData.append("compo", prodComponent);
+  formData.append("price", price);
+  formData.append("slevel", sLevel);
+  formData.append("age", userAge);
 
   const upload = () => {
-    Axios.post("http://3.34.72.172/Product", {
-      image: pictures,
-      name: prodName,
-      detail: prodDetail,
-      compo: prodComponent,
-      price: price,
-      slevel: sLevel,
-      age: userAge
-    }).then(console.log("success userinfo save db.."));
+    Axios.post("http://3.34.59.69/Product", formData).then(
+      console.log("success userinfo save db..")
+    );
   };
 
   const onChange = (event) => {
@@ -78,15 +83,14 @@ const ProdUpload = () => {
     }
     if (name === "slevel") {
       setSlevel(value);
-      console.log(sLevel)
+      console.log(sLevel);
     }
-    
   };
 
   window.Kakao.API.request({
     url: "/v2/user/me",
     success: (res) => {
-      setUserAge(res.kakao_account.age_range)
+      setUserAge(res.kakao_account.age_range);
     },
   });
   return (
@@ -102,11 +106,39 @@ const ProdUpload = () => {
         />
         <TextContainer>
           Product Info
-          <TextInput type="text" name="prodName" value={prodName} onChange={onChange} placeholder="제품 이름" />
-          <TextArea  name="prodDetail" value={prodDetail} onChange={onChange} placeholder="제품 설명" />
-          <TextArea name="prodComponent" value={prodComponent} onChange={onChange} placeholder="제품 구성" />
-          <TextInput type="text" name="price" value={price} onChange={onChange} placeholder="제품 가격" />
-          <TextInput type="text" name="slevel" value={sLevel} onChange={onChange} placeholder="제품 위험도" />
+          <TextInput
+            type="text"
+            name="prodName"
+            value={prodName}
+            onChange={onChange}
+            placeholder="제품 이름"
+          />
+          <TextArea
+            name="prodDetail"
+            value={prodDetail}
+            onChange={onChange}
+            placeholder="제품 설명"
+          />
+          <TextArea
+            name="prodComponent"
+            value={prodComponent}
+            onChange={onChange}
+            placeholder="제품 구성"
+          />
+          <TextInput
+            type="text"
+            name="price"
+            value={price}
+            onChange={onChange}
+            placeholder="제품 가격"
+          />
+          <TextInput
+            type="text"
+            name="slevel"
+            value={sLevel}
+            onChange={onChange}
+            placeholder="제품 위험도"
+          />
           <Button onClick={upload}>등록</Button>
         </TextContainer>
       </FormContainer>

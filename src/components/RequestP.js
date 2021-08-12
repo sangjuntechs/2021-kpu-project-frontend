@@ -6,6 +6,7 @@ const Container = styled.div`
   display:flex;
   flex-direction: column;
   align-items: center;
+  padding:10rem;
 `;
 
 const MainPont = styled.p`

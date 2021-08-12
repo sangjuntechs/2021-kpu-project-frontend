@@ -1,19 +1,18 @@
 import React from "react"
 import styled from "styled-components"
+import FooterImg from "../Img/footer1.png";
+
 
 const Container = styled.div`
-    height: 200px;
-    border: 2px solid red;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display:flex;
     justify-content: center;
+    height: 25rem;
 `
 
 function Footer() {
     return (
         <Container>
-            footer Section
+            <img src={FooterImg} alt='images'/>
         </Container>
     )
 }
