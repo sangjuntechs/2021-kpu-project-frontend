@@ -82,9 +82,10 @@ const ProfileBox = styled.div`
   align-items: center;
   top: 0;
   width: 100vw;
-  height: 70px;
-  background-color: rgba(255, 255, 255, 0.8);
+  height: 5rem;
+  background-color: rgba(200, 200, 200, 0.1);
   z-index: 10;
+  backdrop-filter: blur(5px);
 `;
 
 const ProfileNameBox = styled.div`

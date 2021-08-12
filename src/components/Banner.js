@@ -4,10 +4,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Banner1 from "../Img/banner1.png";
+import Banner2 from "../Img/banner2.png";
 
 const Container = styled.div`
   height: 60vh;
-  margin-top: 5em;
 `;
 
 const BannerImg = styled.img`
@@ -38,13 +38,7 @@ function Banner() {
           <BannerImg src={Banner1} alt="banner1" />
         </div>
         <div>
-          <BannerContainer>뭘봐 시발</BannerContainer>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
+          <BannerImg src={Banner2} alt="banner1" />
         </div>
       </Slider>
     </Container>

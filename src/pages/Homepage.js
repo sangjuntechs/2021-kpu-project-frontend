@@ -10,7 +10,7 @@ import Modal from "react-modal";
 import Poster from "../Img/poster1.png";
 import styled from "styled-components";
 import "../styles/Modal.css";
-import Logo from "../Img/dahyangLogo.png";
+import Logo from "../Img/logorealfinal.jpeg";
 
 const PosterImg = styled.img`
   height: 800px;
@@ -22,13 +22,11 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
 `
 
 const LogoImg = styled.img`
-  height: 150px;
-  width: 250px;
-  margin-top:70px;
+  height: 300px;
+  width: 400px;
 `;
 
 const ModalCloseBtn = styled.button`

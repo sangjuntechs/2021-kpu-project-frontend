@@ -36,6 +36,12 @@ function RequestP() {
     }
   };
 
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+
+    }
+  };
+
   return (
     <Container>
       <MainPont>추가됐으면 좋겠는 향수를 팀에게 말해주세요!</MainPont>
