@@ -7,15 +7,16 @@ import Banner from "../components/Banner";
 import NewProducts from "../components/NewProducts";
 import Footer from "../components/Footer";
 import Modal from "react-modal";
-import Poster from "../Img/poster1.png";
+import Poster from "../Img/posterFinal2.png";
 import styled from "styled-components";
 import "../styles/Modal.css";
 import Logo from "../Img/logorealfinal.jpeg";
 
 const PosterImg = styled.img`
   height: 800px;
-  width: 120%;
+  width: 115%;
   z-index: 30;
+  border-radius: 10px;
 `;
 
 const Header = styled.div`
@@ -34,7 +35,7 @@ const ModalCloseBtn = styled.button`
   cursor: pointer;
   position: absolute;
   top:0;
-  right:-6.3rem;
+  right:-4.5rem;
   margin:10px;
   font-size: 18px;
 `;

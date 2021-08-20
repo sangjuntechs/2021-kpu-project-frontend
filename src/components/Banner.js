@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Banner1 from "../Img/banner1.png";
 import Banner2 from "../Img/banner2.png";
+import Banner3 from "../Img/banner3.png";
 
 const Container = styled.div`
   height: 60vh;
@@ -13,13 +14,9 @@ const Container = styled.div`
 const BannerImg = styled.img`
   height: 38rem;
   width: 100%;
+  cursor: pointer;
 `;
 
-const BannerContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 function Banner() {
   const settings = {
@@ -29,7 +26,9 @@ function Banner() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 3500,
+    arrows: false,
+    pauseOnHover: false,
   };
   return (
     <Container>
@@ -39,6 +38,9 @@ function Banner() {
         </div>
         <div>
           <BannerImg src={Banner2} alt="banner1" />
+        </div>
+        <div>
+          <BannerImg src={Banner3} alt="banner1" />
         </div>
       </Slider>
     </Container>

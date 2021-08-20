@@ -4,11 +4,12 @@ import Fade from "react-reveal/Fade";
 import Roll from "react-reveal/Roll";
 import Axios from "axios";
 
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 110vh;
+  height: 120vh;
   margin-top: 50px;
 `;
 
@@ -27,13 +28,13 @@ const CardContainer = styled.div`
 
 const Bigfont = styled.p`
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 400;
   margin-top: 8px;
 `;
 
 const Midifont = styled.p`
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 400;
   margin-top: 15px;
 `;
 
@@ -51,6 +52,11 @@ const Card = styled.div`
   :hover {
     transform: translateY(-1rem);
     background-color: rgba(0, 0, 0, 0.05);
+    .font {
+      opacity: 1;
+      transform: translateY(2rem);
+      transition: 1s;
+    }
   }
 `;
 
@@ -142,6 +148,16 @@ const AgeLavel = styled.p`
   font-weight: 600;
 `
 
+const LookFont = styled.p`
+  opacity: 0;
+  font-weight: 600;
+  position: absolute;
+  bottom: 0;
+  font-size: 1rem;
+  color:rgb(50,50,50);
+  left:10px;
+`
+
 
 function Individual() {
   const [userName, setUserName] = useState("");
@@ -150,7 +166,7 @@ function Individual() {
 
   useEffect(() => {
     Axios.get("http://3.34.59.69/Product").then((res) => {
-      setProduct(res.data);
+      setProduct(res.data.reverse().slice(0,3));
       console.log(res.data);
       console.log(product);
     });
@@ -180,7 +196,7 @@ function Individual() {
             {userAge === '50~59' ? '50대 청춘인' : ''}
           </Bigfont>
           <Bigfont>
-            <Highlight>{userName}</Highlight>님을 위한 추천이에요 🥰
+            <Highlight>{userName}</Highlight> 님을 위한 추천이에요 🥰
           </Bigfont>
           <Midifont>딱 맞는 향수를 찾아보세요!</Midifont>
         </Fade>
@@ -219,7 +235,9 @@ function Individual() {
                         <p>{prod.ProductSLevel === 'high' ? '알레르기 유발 물질이 많습니다 잘 확인하세요 😱' : ''}</p>
                       </CardTextBox2>
                     </CardInContainer2>
+                    <LookFont className='font'>클릭하면 상세페이지로 이동해요 👍🏻</LookFont>
                   </Card>
+                  
                 );
               })
             : <Bigfont>서버가 맛탱이가 갔어요 😪</Bigfont>}

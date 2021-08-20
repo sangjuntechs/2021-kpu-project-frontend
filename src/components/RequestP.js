@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 20vh;
+  height: 30vh;
   display:flex;
   flex-direction: column;
   align-items: center;
   padding:10rem;
+  padding-top:0;
 `;
 
 const MainPont = styled.p`
-  font-size: 20px;
-  font-weight: 700;
-  margin: 15px;
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 3rem;
 `;
 
 const Input = styled.input`
@@ -38,7 +39,7 @@ function RequestP() {
 
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
-
+      alert(`피드백 감사합니다! \n요청하신 ${requestValue}은(는) 빠른 시일내에 업로드 해드릴게요 😘`)
     }
   };
 
@@ -49,7 +50,8 @@ function RequestP() {
         name="requestValue"
         onChange={onChange}
         value={requestValue}
-        placeholder='향수명을 입력해주세요!'
+        placeholder='향수명을 입력하고 엔터를 눌러주세요!'
+        onKeyPress={onKeyPress}
       ></Input>
     </Container>
   );

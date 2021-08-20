@@ -82,10 +82,10 @@ const ProfileBox = styled.div`
   align-items: center;
   top: 0;
   width: 100vw;
-  height: 5rem;
-  background-color: rgba(200, 200, 200, 0.1);
+  height: 6rem;
+  background-color: rgba(250, 250, 250, 0.1);
   z-index: 10;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(1.5px);
 `;
 
 const ProfileNameBox = styled.div`
@@ -185,7 +185,6 @@ const Login = () => {
         }
       },
     });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   const KakaoLogin = () => {
@@ -216,6 +215,8 @@ const Login = () => {
     });
   };
 
+  
+
   const KakaoLogout = () => {
     if (window.Kakao.Auth.getAccessToken()) {
       window.Kakao.API.request({
@@ -244,6 +245,7 @@ const Login = () => {
             </ProfileNameBox>
             <ProfileImg src={userImage} alt="유저 얼굴" />
           </ProfileBox>
+          
           <HomePage />
           <Modal isOpen={openModal} overlayClassName="Overlay" ariaHideApp={false}>
           <ModalCloseBtn onClick={modalClose}>❌</ModalCloseBtn>

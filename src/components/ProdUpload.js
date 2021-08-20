@@ -63,6 +63,7 @@ const ProdUpload = () => {
     Axios.post("http://3.34.59.69/Product", formData).then(
       console.log("success userinfo save db..")
     );
+    alert('등록 완료')
   };
 
   const onChange = (event) => {
