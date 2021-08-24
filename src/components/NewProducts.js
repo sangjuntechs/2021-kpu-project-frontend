@@ -86,14 +86,15 @@ const CardTextContainer = styled.div`
 `;
 
 const CardProdName = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 300;
-  margin:0.5rem;
+  margin: 0.5rem;
   text-align: center;
 `;
 
 const CardProdPrice = styled.p`
-  font-size: 1rem;
+  font-size: 0.9rem;
+  font-weight: 400;
 `;
 
 const CardDetail = styled.p`
@@ -107,14 +108,13 @@ const CardSLevel = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 3rem;
   text-align: center;
 `;
 
 const Button = styled.button`
-  background-color: orange; /* Green */
+  background-color: rgb(200,200,200); /* Green */
   border: none;
-  color: white;
   padding: 8px 16px;
   text-align: center;
   text-decoration: none;
@@ -136,30 +136,29 @@ const SLevelLawFont = styled.p`
   font-size: 1.3rem;
   color: green;
   font-weight: 400;
-  margin-bottom:0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const SLevelMidFont = styled.p`
   font-size: 1.3rem;
   color: orange;
   font-weight: 400;
-  margin-bottom:0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const SLevelHighFont = styled.p`
   font-size: 1.3rem;
   color: red;
   font-weight: 400;
-  margin-bottom:0.5rem;
+  margin-bottom: 0.5rem;
 `;
 
 const SlevelLabel = styled.div`
-  position:absolute;
-  font-size:0.8rem;
-  bottom:4rem;
-  background-color: yellowgreen;
-  padding:0.3rem;
-`
+  position: absolute;
+  font-size: 0.8rem;
+  bottom: 4rem;
+  padding: 0.3rem;
+`;
 
 function NewProducts() {
   const settings = {
@@ -212,7 +211,11 @@ function NewProducts() {
                       <CardProdPrice>
                         정가 {product1s.ProductPrice}원
                       </CardProdPrice>
-                      <CardDetail>{product1s.ProductDetail}</CardDetail>
+                      <CardDetail>
+                        {product1s.ProductDetail.length > 71
+                          ? `${product1s.ProductDetail.slice(0, 71)}...`
+                          : product1s.ProductDetail}
+                      </CardDetail>
                       <CardSLevel>
                         <SLevelLawFont>
                           {product1s.ProductSLevel === "low"
@@ -232,21 +235,21 @@ function NewProducts() {
                         <Button>소중한 리뷰쓰러 갑시다!</Button>
                       </CardSLevel>
                       <SlevelLabel>
-                      <p>
-                        {product1s.ProductSLevel === "low"
-                          ? "알레르기 반응이 낮은 순한 제품입니다 🥰"
-                          : ""}
-                      </p>
-                      <p>
-                        {product1s.ProductSLevel === "mid"
-                          ? "체질에 따라 알레르기 반응이 있을수도 있어요 😢"
-                          : ""}
-                      </p>
-                      <p>
-                        {product1s.ProductSLevel === "high"
-                          ? "알레르기 유발 물질이 많습니다 잘 확인하세요 😱"
-                          : ""}
-                      </p>
+                        <p>
+                          {product1s.ProductSLevel === "low"
+                            ? "알레르기 반응이 낮은 순한 제품입니다 🥰"
+                            : ""}
+                        </p>
+                        <p>
+                          {product1s.ProductSLevel === "mid"
+                            ? "체질에 따라 알레르기 반응이 있을수도 있어요 😢"
+                            : ""}
+                        </p>
+                        <p>
+                          {product1s.ProductSLevel === "high"
+                            ? "알레르기 유발 물질이 많습니다 잘 확인하세요 😱"
+                            : ""}
+                        </p>
                       </SlevelLabel>
                     </CardTextContainer>
                   </Card>
@@ -269,7 +272,9 @@ function NewProducts() {
                       <CardProdPrice>
                         정가 {product2s.ProductPrice}원
                       </CardProdPrice>
-                      <CardDetail>{product2s.ProductDetail}</CardDetail>
+                      <CardDetail>{product2s.ProductDetail.length > 71
+                          ? `${product2s.ProductDetail.slice(0, 71)}...`
+                          : product2s.ProductDetail}</CardDetail>
                       <CardSLevel>
                         <SLevelLawFont>
                           {product2s.ProductSLevel === "low"
@@ -289,21 +294,21 @@ function NewProducts() {
                         <Button>소중한 리뷰쓰러 갑시다!</Button>
                       </CardSLevel>
                       <SlevelLabel>
-                      <p>
-                        {product2s.ProductSLevel === "low"
-                          ? "알레르기 반응이 낮은 순한 제품입니다 🥰"
-                          : ""}
-                      </p>
-                      <p>
-                        {product2s.ProductSLevel === "mid"
-                          ? "체질에 따라 알레르기 반응이 있을수도 있어요 😢"
-                          : ""}
-                      </p>
-                      <p>
-                        {product2s.ProductSLevel === "high"
-                          ? "알레르기 유발 물질이 많습니다 잘 확인하세요 😱"
-                          : ""}
-                      </p>
+                        <p>
+                          {product2s.ProductSLevel === "low"
+                            ? "알레르기 반응이 낮은 순한 제품입니다 🥰"
+                            : ""}
+                        </p>
+                        <p>
+                          {product2s.ProductSLevel === "mid"
+                            ? "체질에 따라 알레르기 반응이 있을수도 있어요 😢"
+                            : ""}
+                        </p>
+                        <p>
+                          {product2s.ProductSLevel === "high"
+                            ? "알레르기 유발 물질이 많습니다 잘 확인하세요 😱"
+                            : ""}
+                        </p>
                       </SlevelLabel>
                     </CardTextContainer>
                   </Card>
@@ -326,7 +331,9 @@ function NewProducts() {
                       <CardProdPrice>
                         정가 {product3s.ProductPrice}원
                       </CardProdPrice>
-                      <CardDetail>{product3s.ProductDetail}</CardDetail>
+                      <CardDetail>{product3s.ProductDetail.length > 71
+                          ? `${product3s.ProductDetail.slice(0, 71)}...`
+                          : product3s.ProductDetail}</CardDetail>
                       <CardSLevel>
                         위험도 Green 🙂
                         <Button>소중한 리뷰쓰러 갑시다!</Button>

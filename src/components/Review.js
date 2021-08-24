@@ -85,7 +85,7 @@ function Review() {
 
   useEffect(() => {
     Axios.get("http://3.34.59.69/Review").then((res) => {
-      setReview(res.data.reverse().slice(0,3));
+      setReview(res.data.reverse().slice(0,6));
       console.log(res.data)
     });
 
@@ -125,7 +125,7 @@ function Review() {
                   <ReviewImage src={`http://3.34.59.69${reviews.ReviewImg}`} alt="reviewImg" />
                   <CardTextContainer>
                     <ReviewTitle>{reviews.ReviewTitle}</ReviewTitle>
-                    <ReviewWriter>유호청 20대 남성</ReviewWriter>
+                    <ReviewWriter>{reviews.Age_range.slice(0,2)}대 *{reviews.Nickname.slice(1)}님의 리뷰</ReviewWriter>
                     <ReviewScore>⭐️ 5점 / {reviews.ReviewScore}점</ReviewScore>
                     <ReviewDetail>
                       {reviews.ReviewDetail}

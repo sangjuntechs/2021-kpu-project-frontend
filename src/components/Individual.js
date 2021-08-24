@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Fade from "react-reveal/Fade";
 import Roll from "react-reveal/Roll";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -55,7 +56,8 @@ const Card = styled.div`
     .font {
       opacity: 1;
       transform: translateY(2rem);
-      transition: 1s;
+      transition: 0.7s;
+      font-weight: 400;
     }
   }
 `;
@@ -150,16 +152,16 @@ const AgeLavel = styled.p`
 
 const LookFont = styled.p`
   opacity: 0;
-  font-weight: 600;
+  font-weight: 400;
   position: absolute;
   bottom: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color:rgb(50,50,50);
   left:10px;
 `
 
 
-function Individual() {
+const Individual = ({match}) => {
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState('');
   const [product, setProduct] = useState([]);
@@ -206,6 +208,7 @@ function Individual() {
           {product[0]
             ? product.map((prod) => {
                 return (
+                  <Link to={`/Product/detail/${prod.ProductNum}`}>
                   <Card key={prod.ProductNum}>
                     <LavelContainer>
                       <>
@@ -237,6 +240,7 @@ function Individual() {
                     </CardInContainer2>
                     <LookFont className='font'>클릭하면 상세페이지로 이동해요 👍🏻</LookFont>
                   </Card>
+                  </Link>
                   
                 );
               })

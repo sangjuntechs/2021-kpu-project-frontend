@@ -34,7 +34,7 @@ const LoginContainer = styled.div`
 const KakaoButton = styled.button`
   all: unset;
   text-align: center;
-  width: 150px;
+  width: 20rem;
   height: 50px;
   cursor: pointer;
   background-color: #f7e600;
@@ -269,7 +269,7 @@ const Login = () => {
               <Text>편의성을 위해 다향은 카카오 간편 로그인만 가능합니다.</Text>
             </TextBox>
             <KakaoButton onClick={KakaoLogin}>
-              <IoChatbubbleSharp fontSize="16px" /> 카카오로 로그인
+              <IoChatbubbleSharp fontSize="16px"/> 카카오로 로그인
             </KakaoButton>
           </LoginContainer>
         </AllConatiner>
