@@ -166,24 +166,29 @@ const Individual = ({match}) => {
   const [userAge, setUserAge] = useState('');
   const [product, setProduct] = useState([]);
 
+  
+
   useEffect(() => {
-    Axios.get("http://3.34.59.69/Product").then((res) => {
-      setProduct(res.data.reverse().slice(0,3));
-      console.log(res.data);
-      console.log(product);
+    window.Kakao.API.request({
+      url: "/v2/user/me",
+      success: (res) => {
+        setUserName(res.kakao_account.profile.nickname);
+        setUserAge(res.kakao_account.age_range)
+      },
+    });
+
+    Axios.get("http://3.34.59.69/Review").then((res) => {
+      const result = res.data.filter((results) => 
+        results.Age_range === userAge
+      )
+      console.log(result,'result')
+      setProduct(result.slice(0,3).reverse())
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userAge]);
 
-  window.Kakao.API.request({
-    url: "/v2/user/me",
-    success: (res) => {
-      setUserName(res.kakao_account.profile.nickname);
-      setUserAge(res.kakao_account.age_range)
-      console.log(res);
-    },
-  });
+  
 
   
 
@@ -208,38 +213,40 @@ const Individual = ({match}) => {
           {product[0]
             ? product.map((prod) => {
                 return (
-                  <Link to={`/Product/detail/${prod.ProductNum}`}>
-                  <Card key={prod.ProductNum}>
+                  
+                  <Link to={`/Product/detail/${prod.ProductNum}`} key={prod.ProductNum}>
+                    {prod.Age_range === '20~29' ? <Card key={prod.ProductNum}>
                     <LavelContainer>
                       <>
-                      <AgeLavel>{prod.ProductAge === '20~29' ? '20대가 많이 찾아요 👍🏻' : ''}</AgeLavel>
-                      <AgeLavel>{prod.ProductAge === '30~39' ? '30대가 많이 찾아요 👍🏻' : ''}</AgeLavel>
-                      <AgeLavel>{prod.ProductAge === '40~49' ? '40대 많이 찾아요 👍🏻' : ''}</AgeLavel>
-                      <AgeLavel>{prod.ProductAge === '50~59' ? '50대 많이 찾아요 👍🏻' : ''}</AgeLavel>
+                      <AgeLavel>{prod.Age_range === '20~29' ? '최근 20대에게 인기 👍🏻' : ''}</AgeLavel>
+                      <AgeLavel>{prod.Age_range === '30~39' ? '30대가 많이 찾아요 👍🏻' : ''}</AgeLavel>
+                      <AgeLavel>{prod.Age_range === '40~49' ? '40대 많이 찾아요 👍🏻' : ''}</AgeLavel>
+                      <AgeLavel>{prod.Age_range === '50~59' ? '50대 많이 찾아요 👍🏻' : ''}</AgeLavel>
                       </>
                     </LavelContainer>
                     <CardInContainer1>
                       <ProductImg
-                        src={`http://3.34.59.69${prod.ProductImg}`}
+                        src={`http://3.34.59.69${prod.productImg}`}
                         alt="productImg"
                       />
                     </CardInContainer1>
                     <CardInContainer2>
                       <CardTextBox1>
-                      <CardNameFont>{prod.ProductName}</CardNameFont>
-                      <p>{prod.ProductPrice} 원</p>
+                      <CardNameFont>{prod.productName}</CardNameFont>
+                      <p>{prod.productPrice} 원</p>
                       </CardTextBox1>
                       <CardTextBox2>
-                        <SLevelLawFont>{prod.ProductSLevel === 'low' ? '위험도 낮음' : ''}</SLevelLawFont>
-                        <p>{prod.ProductSLevel === 'low' ? '알레르기 반응이 낮은 순한 제품입니다 🥰' : ''}</p>
-                        <SLevelMidFont>{prod.ProductSLevel === 'mid' ? '위험도 보통' : ''}</SLevelMidFont>
-                        <p>{prod.ProductSLevel === 'mid' ? '체질에 따라 알레르기 반응이 있을수도 있어요 😢' : ''}</p>
-                        <SLevelHighFont>{prod.ProductSLevel === 'high' ? '위험도 위험' : ''}</SLevelHighFont>
-                        <p>{prod.ProductSLevel === 'high' ? '알레르기 유발 물질이 많습니다 잘 확인하세요 😱' : ''}</p>
+                        <SLevelLawFont>{prod.productSLevel === 'low' ? '위험도 낮음' : ''}</SLevelLawFont>
+                        <p>{prod.productSLevel === 'low' ? '알레르기 반응이 낮은 순한 제품입니다 🥰' : ''}</p>
+                        <SLevelMidFont>{prod.productSLevel === 'mid' ? '위험도 보통' : ''}</SLevelMidFont>
+                        <p>{prod.productSLevel === 'mid' ? '체질에 따라 알레르기 반응이 있을수도 있어요 😢' : ''}</p>
+                        <SLevelHighFont>{prod.productSLevel === 'high' ? '위험도 위험' : ''}</SLevelHighFont>
+                        <p>{prod.productSLevel === 'high' ? '알레르기 유발 물질이 많습니다 잘 확인하세요 😱' : ''}</p>
                       </CardTextBox2>
                     </CardInContainer2>
                     <LookFont className='font'>클릭하면 상세페이지로 이동해요 👍🏻</LookFont>
-                  </Card>
+                  </Card> : ''}
+                  
                   </Link>
                   
                 );

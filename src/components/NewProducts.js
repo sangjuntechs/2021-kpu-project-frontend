@@ -4,6 +4,7 @@ import Fade from "react-reveal/Fade";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 110vh;
@@ -133,21 +134,21 @@ const Button = styled.button`
 `;
 
 const SLevelLawFont = styled.p`
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: green;
   font-weight: 400;
   margin-bottom: 0.5rem;
 `;
 
 const SLevelMidFont = styled.p`
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: orange;
   font-weight: 400;
   margin-bottom: 0.5rem;
 `;
 
 const SLevelHighFont = styled.p`
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: red;
   font-weight: 400;
   margin-bottom: 0.5rem;
@@ -160,7 +161,7 @@ const SlevelLabel = styled.div`
   padding: 0.3rem;
 `;
 
-function NewProducts() {
+  const NewProducts = ({match}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -175,18 +176,17 @@ function NewProducts() {
   const [product1, setProduct1] = useState([]);
   const [product2, setProduct2] = useState([]);
   const [product3, setProduct3] = useState([]);
-  const [reverse, setReverse] = useState([]);
 
   useEffect(() => {
     Axios.get("http://3.34.59.69/Product").then((res) => {
-      setReverse(res.data.reverse());
-      setProduct1(reverse.slice(0, 3));
-      setProduct2(reverse.slice(3, 6));
-      setProduct3(reverse.slice(6, 9));
+        setProduct1(res.data.slice(0, 3));
+        setProduct2(res.data.slice(3, 6));
+        setProduct3(res.data.slice(6, 9));
+
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reverse]);
+  }, []);
 
   return (
     <Container>
@@ -201,7 +201,7 @@ function NewProducts() {
             <CardContainer>
               {product1.map((product1s) => {
                 return (
-                  <Card>
+                  <Card key={product1s.ProductNum}>
                     <ProdImg
                       src={`http://3.34.59.69${product1s.ProductImg}`}
                       alt="prodImg"
@@ -219,20 +219,22 @@ function NewProducts() {
                       <CardSLevel>
                         <SLevelLawFont>
                           {product1s.ProductSLevel === "low"
-                            ? "위험도 낮음"
+                            ? "위험도 Green 🙂"
                             : ""}
                         </SLevelLawFont>
                         <SLevelMidFont>
                           {product1s.ProductSLevel === "mid"
-                            ? "위험도 보통"
+                            ? "위험도 Orange 😐"
                             : ""}
                         </SLevelMidFont>
                         <SLevelHighFont>
                           {product1s.ProductSLevel === "high"
-                            ? "위험도 위험"
+                            ? "위험도 Red 🙁"
                             : ""}
                         </SLevelHighFont>
+                        <Link to={`/Product/detail/${product1s.ProductNum}`}>
                         <Button>소중한 리뷰쓰러 갑시다!</Button>
+                        </Link>
                       </CardSLevel>
                       <SlevelLabel>
                         <p>
@@ -262,7 +264,7 @@ function NewProducts() {
             <CardContainer>
               {product2.map((product2s) => {
                 return (
-                  <Card>
+                  <Card key={product2s.ProductNum}>
                     <ProdImg
                       src={`http://3.34.59.69${product2s.ProductImg}`}
                       alt="prodImg"
@@ -278,20 +280,22 @@ function NewProducts() {
                       <CardSLevel>
                         <SLevelLawFont>
                           {product2s.ProductSLevel === "low"
-                            ? "위험도 낮음"
+                            ? "위험도 Green"
                             : ""}
                         </SLevelLawFont>
                         <SLevelMidFont>
                           {product2s.ProductSLevel === "mid"
-                            ? "위험도 보통"
+                            ? "위험도 Orange"
                             : ""}
                         </SLevelMidFont>
                         <SLevelHighFont>
                           {product2s.ProductSLevel === "high"
-                            ? "위험도 위험"
+                            ? "위험도 Red"
                             : ""}
                         </SLevelHighFont>
+                        <Link to={`/Product/detail/${product2s.ProductNum}`}>
                         <Button>소중한 리뷰쓰러 갑시다!</Button>
+                        </Link>
                       </CardSLevel>
                       <SlevelLabel>
                         <p>
@@ -321,7 +325,7 @@ function NewProducts() {
             <CardContainer>
               {product3.map((product3s) => {
                 return (
-                  <Card>
+                  <Card key={product3s.ProductNum}>
                     <ProdImg
                       src={`http://3.34.59.69${product3s.ProductImg}`}
                       alt="prodImg"
@@ -335,8 +339,24 @@ function NewProducts() {
                           ? `${product3s.ProductDetail.slice(0, 71)}...`
                           : product3s.ProductDetail}</CardDetail>
                       <CardSLevel>
-                        위험도 Green 🙂
+                      <SLevelLawFont>
+                          {product3s.ProductSLevel === "low"
+                            ? "위험도 Green"
+                            : ""}
+                        </SLevelLawFont>
+                        <SLevelMidFont>
+                          {product3s.ProductSLevel === "mid"
+                            ? "위험도 Orange"
+                            : ""}
+                        </SLevelMidFont>
+                        <SLevelHighFont>
+                          {product3s.ProductSLevel === "high"
+                            ? "위험도 Red"
+                            : ""}
+                        </SLevelHighFont>
+                        <Link to={`/Product/detail/${product3s.ProductNum}`}>
                         <Button>소중한 리뷰쓰러 갑시다!</Button>
+                        </Link>
                       </CardSLevel>
                     </CardTextContainer>
                   </Card>

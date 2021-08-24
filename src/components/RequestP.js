@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Axios from 'axios';
 
 const Container = styled.div`
   height: 30vh;
@@ -37,8 +38,14 @@ function RequestP() {
     }
   };
 
+
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
+      Axios.post("http://3.34.59.69/Request", {
+      requestid: requestValue
+    }).then(() => {
+      console.log('success')
+    });
       alert(`피드백 감사합니다! \n요청하신 ${requestValue}은(는) 빠른 시일내에 업로드 해드릴게요 😘`)
     }
   };

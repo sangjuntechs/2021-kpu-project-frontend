@@ -53,7 +53,7 @@ const ProfileImg = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 20px;
-  margin:10px;
+  margin: 10px;
 `;
 
 const TextBox = styled.div`
@@ -89,17 +89,17 @@ const ProfileBox = styled.div`
 `;
 
 const ProfileNameBox = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   font-size: 12px;
-`
+`;
 
 const ModalCloseBtn = styled.button`
   all: unset;
   cursor: pointer;
   position: absolute;
   right: 0px;
-  top:0px;
+  top: 0px;
   margin: 10px;
   font-size: 18px;
 `;
@@ -113,17 +113,17 @@ const Button = styled.button`
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
-  margin:10px;
-  font-weight:600;
-  border-radius:5px;
-  cursor:pointer;
+  margin: 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
   :hover {
     opacity: 0.7;
   }
-`
+`;
 
 const ProdButton = styled.button`
-  background-color: #4CAF50; /* Green */
+  background-color: #4caf50; /* Green */
   border: none;
   color: black;
   padding: 8px 16px;
@@ -131,22 +131,22 @@ const ProdButton = styled.button`
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
-  margin:10px;
-  font-weight:600;
-  border-radius:5px;
-  margin-right:0;
-  cursor:pointer;
+  margin: 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin-right: 0;
+  cursor: pointer;
   :hover {
     opacity: 0.7;
   }
-`
+`;
 
 const Highlight = styled.p`
   font-weight: 600;
   background-color: yellow;
-  display:inline;
+  display: inline;
   font-size: 14px;
-`
+`;
 
 const Login = () => {
   const [token, setToken] = useState(null);
@@ -215,8 +215,6 @@ const Login = () => {
     });
   };
 
-  
-
   const KakaoLogout = () => {
     if (window.Kakao.Auth.getAccessToken()) {
       window.Kakao.API.request({
@@ -237,18 +235,28 @@ const Login = () => {
       {token ? (
         <>
           <ProfileBox>
-            {admin ? <ProdButton onClick={modalOpen}>제품 등록</ProdButton> : ""}
+            {admin ? (
+              <ProdButton onClick={modalOpen}>제품 등록</ProdButton>
+            ) : (
+              ""
+            )}
             <Button onClick={KakaoLogout}>로그아웃</Button>
             <ProfileNameBox>
-            <p><Highlight>{userName}</Highlight>님 반갑습니다.</p>
-            <p>{admin ? "다향의 관리자입니다." : ""}</p>
+              <p>
+                <Highlight>{userName}</Highlight>님 반갑습니다.
+              </p>
+              <p>{admin ? "다향의 관리자입니다." : ""}</p>
             </ProfileNameBox>
             <ProfileImg src={userImage} alt="유저 얼굴" />
           </ProfileBox>
-          
+
           <HomePage />
-          <Modal isOpen={openModal} overlayClassName="Overlay" ariaHideApp={false}>
-          <ModalCloseBtn onClick={modalClose}>❌</ModalCloseBtn>
+          <Modal
+            isOpen={openModal}
+            overlayClassName="Overlay"
+            ariaHideApp={false}
+          >
+            <ModalCloseBtn onClick={modalClose}>❌</ModalCloseBtn>
             <ProdUpload />
           </Modal>
         </>
@@ -269,7 +277,7 @@ const Login = () => {
               <Text>편의성을 위해 다향은 카카오 간편 로그인만 가능합니다.</Text>
             </TextBox>
             <KakaoButton onClick={KakaoLogin}>
-              <IoChatbubbleSharp fontSize="16px"/> 카카오로 로그인
+              <IoChatbubbleSharp fontSize="16px" /> 카카오로 로그인
             </KakaoButton>
           </LoginContainer>
         </AllConatiner>

@@ -1,16 +1,18 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Rotate from 'react-reveal/Rotate';
-import Axios from 'axios'
+import Rotate from "react-reveal/Rotate";
+import Axios from "axios";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
   height: 120vh;
-  margin-top:5rem;
+  margin-top: 5rem;
 `;
+
 
 const SliderConatiner = styled.div`
   width: 60vw;
@@ -22,12 +24,12 @@ const TextContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 40vw;
-  height:100%;
+  height: 100%;
   transform: translateY(-9rem);
 `;
 
 const Card = styled.div`
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -40,7 +42,7 @@ const Card = styled.div`
   cursor: pointer;
   transition: 0.3s linear;
   :hover {
-    background-color: rgb(240,240,240);
+    background-color: rgb(240, 240, 240);
     transform: translateY(-1rem);
   }
 `;
@@ -53,20 +55,27 @@ const CardContainer = styled.div`
 `;
 
 const HotFont = styled.p`
-    font-size:1.5rem;
-    font-weight: 600;
-    color: red;
-    margin-bottom:0.5rem;
-`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: red;
+  margin-bottom: 0.5rem;
+`;
 
 const BigFont = styled.div`
-    font-size:2rem;
-    font-weight: 300;
-`
+  font-size: 2rem;
+  font-weight: 300;
+`;
 
 const MidFont = styled.div`
-    font-size: 1.2rem;
-    font-weight:300;
+  font-size: 1.2rem;
+  font-weight: 300;
+  text-align:center;
+`;
+
+const SmallFont = styled.div`
+  margin-top:2rem;
+  font-size: 0.8rem;
+  text-align:center;
 `
 
 const ProductImg = styled.img`
@@ -76,7 +85,7 @@ const ProductImg = styled.img`
   margin: 2rem;
 `;
 
-function ManyReview() {
+const ManyReview = ({ match }) => {
   const settings = {
     dots: false,
     arrows: false,
@@ -96,10 +105,10 @@ function ManyReview() {
 
   useEffect(() => {
     Axios.get("http://3.34.59.69/Rank").then((res) => {
-      setRank1(res.data.slice(0,2));
-      setRank2(res.data.slice(2,4));
-      setRank3(res.data.slice(4,6));
-      console.log(res.data)
+      setRank1(res.data.slice(0, 2));
+      setRank2(res.data.slice(2, 4));
+      setRank3(res.data.slice(4, 6));
+      console.log(res.data);
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,59 +121,65 @@ function ManyReview() {
           <div>
             <CardContainer>
               {rank1.map((rank1s) => {
-                return(
-                  <Card>
-                  <MidFont>{rank1s.ProductName}</MidFont>
-                  <ProductImg src={`http://3.34.59.69${rank1s.ProductImg}`}/>
-                  <p>소비자가 {rank1s.ProductPrice}원</p>
+                return (
+                  <Card key={rank1s.ProductNum}>
+                    <Link to={`/Product/detail/${rank1s.ProductNum}`}>
+                      <MidFont>{rank1s.ProductName}</MidFont>
+                      <ProductImg
+                        src={`http://3.34.59.69${rank1s.ProductImg}`}
+                      />
+                      <SmallFont>소비자가 {rank1s.ProductPrice}원</SmallFont>
+                    </Link>
                   </Card>
-                )
+                );
               })}
             </CardContainer>
           </div>
           <div>
             <CardContainer>
-            {rank2.map((rank2s) => {
-                return(
-                  <Card>
-                  <MidFont>{rank2s.ProductName}</MidFont>
-                  <ProductImg src={`http://3.34.59.69${rank2s.ProductImg}`}/>
-                  <p>소비자가 {rank2s.ProductPrice}원</p>
+              {rank2.map((rank2s) => {
+                return (
+                  <Card key={rank2s.ProductNum}>
+                    <Link className='Link'to={`/Product/detail/${rank2s.ProductNum}`}>
+                      <MidFont>{rank2s.ProductName}</MidFont>
+                      <ProductImg
+                        src={`http://3.34.59.69${rank2s.ProductImg}`}
+                      />
+                      <SmallFont>소비자가 {rank2s.ProductPrice}원</SmallFont>
+                    </Link>
                   </Card>
-                )
+                );
               })}
             </CardContainer>
           </div>
           <div>
             <CardContainer>
-            {rank3.map((rank3s) => {
-                return(
-                  <Card>
-                  <MidFont>{rank3s.ProductName}</MidFont>
-                  <ProductImg src={`http://3.34.59.69${rank3s.ProductImg}`}/>
-                  <p>소비자가 {rank3s.ProductPrice}원</p>
+              {rank3.map((rank3s) => {
+                return (
+                  <Card key={rank3s.ProductNum}>
+                    <Link to={`/Product/detail/${rank3s.ProductNum}`}>
+                      <MidFont>{rank3s.ProductName}</MidFont>
+                      <ProductImg
+                        src={`http://3.34.59.69${rank3s.ProductImg}`}
+                      />
+                      <SmallFont>소비자가 {rank3s.ProductPrice}원</SmallFont>
+                    </Link>
                   </Card>
-                )
+                );
               })}
             </CardContainer>
           </div>
         </Slider>
       </SliderConatiner>
       <Rotate top right delay={300}>
-      <TextContainer>
-          <HotFont>
-              HOT!
-          </HotFont>
-          <BigFont>
-              다향러들이 가장 많이 사용해본 향수에요!
-          </BigFont>
-          <MidFont>
-              많은 리뷰에는 이유가 있는 법이겠죠? 🤔
-          </MidFont>
-      </TextContainer>
+        <TextContainer>
+          <HotFont>HOT!</HotFont>
+          <BigFont>다향러들이 가장 많이 사용해본 향수에요!</BigFont>
+          <MidFont>많은 리뷰에는 이유가 있는 법이겠죠? 🤔</MidFont>
+        </TextContainer>
       </Rotate>
     </Container>
   );
-}
+};
 
 export default ManyReview;
