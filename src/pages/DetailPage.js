@@ -13,8 +13,9 @@ const Container1 = styled.div`
 
 const Container2 = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  flex-direction: column;
+  width:55%;
 `;
 
 const ItemContainer = styled.div`
@@ -22,10 +23,24 @@ const ItemContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   box-shadow: 2px 4px 8px gray;
-  width: 50%;
   padding: 3rem;
   box-sizing: border-box;
+  width:80%;
   border-radius: 15px;
+  margin-bottom: 3rem;
+`;
+
+const ItemContainer2 = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 2px 4px 8px gray;
+  padding: 3rem;
+  box-sizing: border-box;
+  width:80%;
+  border-radius: 15px;
+  margin-bottom: 3rem;
+  height: 32rem;
 `;
 
 const ReviewContainer = styled.div`
@@ -62,9 +77,19 @@ const ProdName = styled.p`
   font-weight: 300;
   margin: 0.5rem;
   text-align: center;
-  padding: 3rem;
   padding-bottom: 0;
   width: 20rem;
+  margin-top:0;
+`;
+
+const BigFont = styled.p`
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0.5rem;
+  text-align: center;
+  padding-bottom: 0;
+  width: 20rem;
+  margin-top:0;
 `;
 
 const ProdDetail = styled.p`
@@ -121,6 +146,7 @@ const ImageBox= styled.div`
   align-items: center;
   padding:3rem;
   width: 80%;
+  margin-top:3rem;
 `
 
 const DetailPage = ({ match }) => {
@@ -167,6 +193,7 @@ const DetailPage = ({ match }) => {
         <LogoImg src={Logo} alt="로고" />
       </Header>
       <Container1>
+        <Container2>
         <ItemContainer>
           <ProdImg
             src={`${
@@ -184,8 +211,12 @@ const DetailPage = ({ match }) => {
             </ProdDetail>
           </TextContainer1>
         </ItemContainer>
+        <ItemContainer2>
+          <ProdName>이 제품의 리뷰들이에요 🥳</ProdName>
+        </ItemContainer2>
+        </Container2>
         <ReviewContainer>
-          <ProdName>리뷰를 남겨보세요 🥰</ProdName>
+          <BigFont>리뷰를 남겨보세요 🥰</BigFont>
           <ImageBox>
             사진리뷰는 사랑입니다.
           <ImageUploader
@@ -230,7 +261,6 @@ const DetailPage = ({ match }) => {
           />
         </ReviewContainer>
       </Container1>
-      <Container2></Container2>
       <Footer></Footer>
     </>
   );

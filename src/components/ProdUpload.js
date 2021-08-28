@@ -35,6 +35,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+
 const ProdUpload = () => {
   const [pictures, setPictures] = useState();
   const [prodName, setProdName] = useState("");
