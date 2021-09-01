@@ -182,7 +182,7 @@ const Individual = ({match}) => {
         results.Age_range === userAge
       )
       console.log(result,'result')
-      setProduct(result.slice(0,3).reverse())
+      setProduct(result.slice(0,3))
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

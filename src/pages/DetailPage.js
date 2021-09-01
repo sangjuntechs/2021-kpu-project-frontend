@@ -4,11 +4,13 @@ import styled from "styled-components";
 import Logo from "../Img/logorealfinal.jpeg";
 import ImageUploader from "react-images-upload";
 import Footer from "../components/Footer";
+import { Link,} from "react-router-dom";
 
 const Container1 = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color:rgb(240,240,240);
 `;
 
 const Container2 = styled.div`
@@ -28,19 +30,24 @@ const ItemContainer = styled.div`
   width:80%;
   border-radius: 15px;
   margin-bottom: 3rem;
+  margin-top: 3rem;
+  background-color:white;
 `;
 
 const ItemContainer2 = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  flex-direction: column;
   box-shadow: 2px 4px 8px gray;
-  padding: 3rem;
+  padding: 1rem;
   box-sizing: border-box;
   width:80%;
   border-radius: 15px;
-  margin-bottom: 3rem;
   height: 32rem;
+  background-color: white;
+  overflow: scroll;
+  margin-bottom: 3rem;
+  cursor: all-scroll;
 `;
 
 const ReviewContainer = styled.div`
@@ -120,6 +127,7 @@ const TextArea = styled.textarea`
   width: 35rem;
   height: 20rem;
   margin: 5px;
+  border-radius: 10px;
 `;
 
 const Select = styled.select`
@@ -149,18 +157,84 @@ const ImageBox= styled.div`
   margin-top:3rem;
 `
 
+const Button = styled.button`
+  background-color: yellowgreen; /* Green */
+  border: none;
+  color: black;
+  padding: 12px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  :hover {
+    opacity: 0.7;
+  }
+`;
+
+const ReviewBox = styled.div`
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin:2rem;
+  width:80%;
+  padding:2rem;
+  box-shadow: 2px 4px 8px gray;
+  border-radius: 5px;
+`
+
+const ReviewImg = styled.img`
+  width:10rem;
+  height: 10rem;
+  margin-right:1rem;
+`
+
+const RTitle = styled.p`
+  font-size:1.2rem;
+  font-weight: 300;
+  margin-bottom:0.5rem;
+`
+
+const RTitleBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width:50%;
+`
+
 const DetailPage = ({ match }) => {
   const [Product, setProduct] = useState([]);
   const [ReviewTitle, setReviewTitle] = useState("");
   const [ReviewDetail, setReviewDetail] = useState("");
   const [ReviewScore, setReviewScore] = useState("");
+  const [email, setEmail] = useState("");
   const [pictures, setPictures] = useState();
 
   const onDrop = (picture) => {
     setPictures(picture[0])
   };
 
-  console.log(pictures)
+  console.log(Product[0],'pro')
+
+
+  const formData = new FormData();
+  formData.append("title", ReviewTitle);
+  formData.append("detail", ReviewDetail);
+  formData.append("score", ReviewScore);
+  formData.append("image", pictures);
+  formData.append('email', email);
+  formData.append('product', Product[1] ? Product[1][0].ProductNum : '')
+
+  const onClick = () => {
+    Axios.post("http://3.34.59.69/Review", formData).then(
+      console.log("success userinfo save db..")
+    );
+    alert('리뷰 작성이 완료되었습니다! 멋진 리뷰 감사합니다🥰')
+  }
 
   const onChange = (event) => {
     const {
@@ -184,13 +258,21 @@ const DetailPage = ({ match }) => {
         setProduct(res.data);
       }
     );
+    window.Kakao.API.request({
+      url: "/v2/user/me",
+      success: (res) => {
+        setEmail(res.kakao_account.email);
+      },
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
       <Header>
+        <Link to='/'>
         <LogoImg src={Logo} alt="로고" />
+        </Link>
       </Header>
       <Container1>
         <Container2>
@@ -211,8 +293,21 @@ const DetailPage = ({ match }) => {
             </ProdDetail>
           </TextContainer1>
         </ItemContainer>
+        <ProdName>이 제품의 리뷰들이에요 🥳</ProdName>
         <ItemContainer2>
-          <ProdName>이 제품의 리뷰들이에요 🥳</ProdName>
+          {Product[0] ? Product[0].map((pro) => {
+            return (
+            <ReviewBox>
+              <ReviewImg src={`http://3.34.59.69${pro.ReviewImg}`}/>
+              <RTitleBox>
+              <RTitle>{pro.ReviewTitle}</RTitle>
+              {pro.Nickname.slice(0,2)}* 님의 리뷰
+              <ProdDetail>5/ {pro.ReviewScore}점⭐️</ProdDetail>
+              <ProdDetail>{pro.ReviewDetail}</ProdDetail>
+              </RTitleBox>
+            </ReviewBox>
+            )  
+          }) : ''}
         </ItemContainer2>
         </Container2>
         <ReviewContainer>
@@ -259,6 +354,7 @@ const DetailPage = ({ match }) => {
             placeholder="리뷰 내용을 작성해주세요!"
             name="reviewDetail"
           />
+          <Button onClick={onClick}>리뷰 작성</Button>
         </ReviewContainer>
       </Container1>
       <Footer></Footer>
