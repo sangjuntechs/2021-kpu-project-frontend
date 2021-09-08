@@ -38,6 +38,8 @@ const Card = styled.div`
   box-shadow: 1px 2px 3px gray;
   border-radius: 15px;
   margin: 1rem;
+  padding:2rem;
+  box-sizing:border-box;
   filter: drop-shadow(5px);
   cursor: pointer;
   transition: 0.3s linear;

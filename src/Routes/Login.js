@@ -201,14 +201,17 @@ const Login = () => {
             const EMAIL = res.kakao_account.email;
             const NICK_NAME = res.kakao_account.profile.nickname;
             const GENDER = res.kakao_account.gender;
+            const USER_ID = res.id;
+            console.log(res, 'res')
 
-            Axios.post("http://3.34.72.172/register", {
+            Axios.post("http://3.34.59.69/Member", {
+              id: USER_ID,
               nickname: NICK_NAME,
               age_range: AGE_RANGE,
               birth: BIRTHDAY,
               email: EMAIL,
               gender: GENDER,
-            }).then(console.log("success userinfo save db.."));
+            }).then(console.log("success userinfo save user db.."));
           },
         });
       },

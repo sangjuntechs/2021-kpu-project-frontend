@@ -44,6 +44,10 @@ const ProdUpload = () => {
   const [price, setPrice] = useState("");
   const [sLevel, setSlevel] = useState("");
   const [userAge, setUserAge] = useState("");
+  const [prodF1, setProdF1] = useState("");
+  const [prodF2, setProdF2] = useState("");
+  const [prodF3, setProdF3] = useState("");
+
 
   const onDrop = (picture) => {
     setPictures(picture[0])
@@ -59,6 +63,10 @@ const ProdUpload = () => {
   formData.append("price", price);
   formData.append("slevel", sLevel);
   formData.append("age", userAge);
+  formData.append("productf1", prodF1);
+  formData.append("productf2", prodF2);
+  formData.append("productf3", prodF3);
+
 
   const upload = () => {
     Axios.post("http://3.34.59.69/Product", formData).then(
@@ -85,7 +93,15 @@ const ProdUpload = () => {
     }
     if (name === "slevel") {
       setSlevel(value);
-      console.log(sLevel);
+    }
+    if (name === "prodF1") {
+      setProdF1(value);
+    }
+    if (name === "prodF2") {
+      setProdF2(value);
+    }
+    if (name === "prodF3") {
+      setProdF3(value);
     }
   };
 
@@ -120,6 +136,27 @@ const ProdUpload = () => {
             value={prodDetail}
             onChange={onChange}
             placeholder="제품 설명"
+          />
+          <TextInput
+            type="text"
+            name="prodF1"
+            value={prodF1}
+            onChange={onChange}
+            placeholder="제품 특성1"
+          />
+          <TextInput
+            type="text"
+            name="prodF2"
+            value={prodF2}
+            onChange={onChange}
+            placeholder="제품 특성2"
+          />
+          <TextInput
+            type="text"
+            name="prodF3"
+            value={prodF3}
+            onChange={onChange}
+            placeholder="제품 특성3"
           />
           <TextArea
             name="prodComponent"

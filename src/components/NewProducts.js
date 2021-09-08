@@ -161,6 +161,13 @@ const SlevelLabel = styled.div`
   padding: 0.3rem;
 `;
 
+const HashTag = styled.p`
+  color: dodgerblue;
+  font-size:0.8rem;
+  display: inline-flex;
+  margin:0.5rem;
+`
+
   const NewProducts = ({match}) => {
   const settings = {
     dots: true,
@@ -207,6 +214,7 @@ const SlevelLabel = styled.div`
                       alt="prodImg"
                     />
                     <CardTextContainer>
+                      <HashTag>#{product1s.ProductF1} #{product1s.ProductF2} #{product1s.ProductF3}</HashTag>
                       <CardProdName>{product1s.ProductName}</CardProdName>
                       <CardProdPrice>
                         정가 {product1s.ProductPrice}원
@@ -270,6 +278,7 @@ const SlevelLabel = styled.div`
                       alt="prodImg"
                     />
                     <CardTextContainer>
+                      <HashTag>#{product2s.ProductF1} #{product2s.ProductF2} #{product2s.ProductF3}</HashTag>
                       <CardProdName>{product2s.ProductName}</CardProdName>
                       <CardProdPrice>
                         정가 {product2s.ProductPrice}원
@@ -331,6 +340,7 @@ const SlevelLabel = styled.div`
                       alt="prodImg"
                     />
                     <CardTextContainer>
+                      <HashTag>#{product3s.ProductF1} #{product3s.ProductF2} #{product3s.ProductF3}</HashTag>
                       <CardProdName>{product3s.ProductName}</CardProdName>
                       <CardProdPrice>
                         정가 {product3s.ProductPrice}원

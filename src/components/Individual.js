@@ -160,6 +160,13 @@ const LookFont = styled.p`
   left:10px;
 `
 
+const HashTag = styled.p`
+  color: dodgerblue;
+  font-size:0.8rem;
+  display: inline-flex;
+  margin-top:0.5rem;
+`
+
 
 const Individual = ({match}) => {
   const [userName, setUserName] = useState("");
@@ -224,24 +231,26 @@ const Individual = ({match}) => {
                       <AgeLavel>{prod.Age_range === '50~59' ? '50대 많이 찾아요 👍🏻' : ''}</AgeLavel>
                       </>
                     </LavelContainer>
+                    
                     <CardInContainer1>
                       <ProductImg
-                        src={`http://3.34.59.69${prod.productImg}`}
+                        src={`http://3.34.59.69${prod.ProductImg}`}
                         alt="productImg"
                       />
                     </CardInContainer1>
                     <CardInContainer2>
                       <CardTextBox1>
-                      <CardNameFont>{prod.productName}</CardNameFont>
-                      <p>{prod.productPrice} 원</p>
+                      <CardNameFont>{prod.ProductName}</CardNameFont>
+                      <p>{prod.ProductPrice} 원</p>
+                      <HashTag>#{prod.ProductF1} #{prod.ProductF2} #{prod.ProductF3}</HashTag>
                       </CardTextBox1>
                       <CardTextBox2>
-                        <SLevelLawFont>{prod.productSLevel === 'low' ? '위험도 낮음' : ''}</SLevelLawFont>
-                        <p>{prod.productSLevel === 'low' ? '알레르기 반응이 낮은 순한 제품입니다 🥰' : ''}</p>
-                        <SLevelMidFont>{prod.productSLevel === 'mid' ? '위험도 보통' : ''}</SLevelMidFont>
-                        <p>{prod.productSLevel === 'mid' ? '체질에 따라 알레르기 반응이 있을수도 있어요 😢' : ''}</p>
-                        <SLevelHighFont>{prod.productSLevel === 'high' ? '위험도 위험' : ''}</SLevelHighFont>
-                        <p>{prod.productSLevel === 'high' ? '알레르기 유발 물질이 많습니다 잘 확인하세요 😱' : ''}</p>
+                        <SLevelLawFont>{prod.ProductSLevel === 'low' ? '위험도 낮음' : ''}</SLevelLawFont>
+                        <p>{prod.ProductSLevel === 'low' ? '알레르기 반응이 낮은 순한 제품입니다 🥰' : ''}</p>
+                        <SLevelMidFont>{prod.ProductSLevel === 'mid' ? '위험도 보통' : ''}</SLevelMidFont>
+                        <p>{prod.ProductSLevel === 'mid' ? '체질에 따라 알레르기 반응이 있을수도 있어요 😢' : ''}</p>
+                        <SLevelHighFont>{prod.ProductSLevel === 'high' ? '위험도 위험' : ''}</SLevelHighFont>
+                        <p>{prod.ProductSLevel === 'high' ? '알레르기 유발 물질이 많습니다 잘 확인하세요 😱' : ''}</p>
                       </CardTextBox2>
                     </CardInContainer2>
                     <LookFont className='font'>클릭하면 상세페이지로 이동해요 👍🏻</LookFont>

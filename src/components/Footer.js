@@ -1,13 +1,14 @@
 import React from "react"
 import styled from "styled-components"
-import FooterImg from "../Img/footer_final.jpeg";
+import FooterImg from "../Img/reaclFinalFoot.png";
 
 
 const Container = styled.div`
     display:flex;
     justify-content: center;
-    height: 22rem;
-    width:100vw;
+    height: 18rem;
+    width:100%;
+    border-top:1px solid rgb(220,220,220);
 `
 
 function Footer() {

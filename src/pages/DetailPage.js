@@ -213,6 +213,7 @@ const DetailPage = ({ match }) => {
   const [ReviewScore, setReviewScore] = useState("");
   const [email, setEmail] = useState("");
   const [pictures, setPictures] = useState();
+  const [userId, setUserId] = useState('');
 
   const onDrop = (picture) => {
     setPictures(picture[0])
@@ -227,7 +228,8 @@ const DetailPage = ({ match }) => {
   formData.append("score", ReviewScore);
   formData.append("image", pictures);
   formData.append('email', email);
-  formData.append('product', Product[1] ? Product[1][0].ProductNum : '')
+  formData.append('product', Product[1] ? Product[1][0].ProductNum : '');
+  formData.append('id', userId);
 
   const onClick = () => {
     Axios.post("http://3.34.59.69/Review", formData).then(
@@ -262,6 +264,7 @@ const DetailPage = ({ match }) => {
       url: "/v2/user/me",
       success: (res) => {
         setEmail(res.kakao_account.email);
+        setUserId(res.id);
       },
     });
 
@@ -279,17 +282,17 @@ const DetailPage = ({ match }) => {
         <ItemContainer>
           <ProdImg
             src={`${
-              Product[1] ? `http://3.34.59.69${Product[1][0].productImg}` : ""
+              Product[1] ? `http://3.34.59.69${Product[1][0].ProductImg}` : ""
             }`}
             alt="prodImg"
           />
           <TextContainer1>
-            <ProdName>{Product[1] ? Product[1][0].productName : ""}</ProdName>
+            <ProdName>{Product[1] ? Product[1][0].ProductName : ""}</ProdName>
             <ProdDetail>
-              소비자가격 {Product[1] ? Product[1][0].productPrice : ""}원
+              소비자가격 {Product[1] ? Product[1][0].ProductPrice : ""}원
             </ProdDetail>
             <ProdDetail>
-              {Product[1] ? Product[1][0].productDetail : ""}
+              {Product[1] ? Product[1][0].ProductDetail : ""}
             </ProdDetail>
           </TextContainer1>
         </ItemContainer>
