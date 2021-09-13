@@ -148,21 +148,71 @@ const Highlight = styled.p`
   font-size: 14px;
 `;
 
+const SearchBox = styled.input`
+  all: unset;
+  padding: 1rem;
+  border-bottom: 2px solid black;
+  position: absolute;
+  left: 3rem;
+  width: 12rem;
+`;
+
 const Login = () => {
   const [token, setToken] = useState(null);
   const [userName, setUserName] = useState([]);
   const [userImage, setUserImage] = useState([]);
   const [admin, setAdmin] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openSearchModal, setOpenSearchModal] = useState(false);
+  const [search, setSearch] = useState("");
+  const [product, setProduct] = useState([]);
+  const [filterProduct, setFilterProduct] = useState([]);
 
   const modalOpen = () => {
     setOpenModal(true);
   };
 
+  const filterPerfume = () => {
+    const filterPerfumes = product.filter((perfumes) => {
+      return (
+        perfumes.ProductName.includes(search) ||
+        perfumes.ProductF1.includes(search) ||
+        perfumes.ProductF2.includes(search) ||
+        perfumes.ProductF3.includes(search)
+      );
+    });
+    setFilterProduct(filterPerfumes);
+  };
+
+  const searchModalOpen = (e) => {
+    if (e.key === "Enter") {
+      setOpenSearchModal(true);
+      filterPerfume();
+    }
+  };
+
   const modalClose = () => {
     setOpenModal(false);
   };
+
+  const searchModalClose = () => {
+    setOpenSearchModal(false);
+  };
+
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    if (name === "searchWord") {
+      setSearch(value);
+    }
+  };
+
   useEffect(() => {
+    Axios.get("http://3.34.59.69/Product").then((res) => {
+      setProduct(res.data);
+    });
+
     if (!window.Kakao.Auth.getAccessToken()) {
       setToken(null);
     }
@@ -202,7 +252,7 @@ const Login = () => {
             const NICK_NAME = res.kakao_account.profile.nickname;
             const GENDER = res.kakao_account.gender;
             const USER_ID = res.id;
-            console.log(res, 'res')
+            console.log(res, "res");
 
             Axios.post("http://3.34.59.69/Member", {
               id: USER_ID,
@@ -238,6 +288,14 @@ const Login = () => {
       {token ? (
         <>
           <ProfileBox>
+            <SearchBox
+              name="searchWord"
+              type="text"
+              placeholder="찾고싶은 향수나 특징을 적고 엔터!"
+              onChange={onChange}
+              onKeyPress={searchModalOpen}
+            />
+
             {admin ? (
               <ProdButton onClick={modalOpen}>제품 등록</ProdButton>
             ) : (
@@ -261,6 +319,16 @@ const Login = () => {
           >
             <ModalCloseBtn onClick={modalClose}>❌</ModalCloseBtn>
             <ProdUpload />
+          </Modal>
+          <Modal
+            isOpen={openSearchModal}
+            overlayClassName="Overlay"
+            ariaHideApp={false}
+          >
+            {filterProduct.map((prod) => {
+              return <p>{prod.ProductName}</p>;
+            })}
+            <ModalCloseBtn onClick={searchModalClose}>❌</ModalCloseBtn>
           </Modal>
         </>
       ) : (

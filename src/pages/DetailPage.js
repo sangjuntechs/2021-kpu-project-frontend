@@ -5,6 +5,7 @@ import Logo from "../Img/logorealfinal.jpeg";
 import ImageUploader from "react-images-upload";
 import Footer from "../components/Footer";
 import { Link,} from "react-router-dom";
+import Highlighter from "react-highlight-words";
 
 const Container1 = styled.div`
   display: flex;
@@ -206,6 +207,26 @@ const RTitleBox = styled.div`
   width:50%;
 `
 
+const HashTag = styled.p`
+  color: dodgerblue;
+  font-size:0.8rem;
+  display: inline-flex;
+  margin-top:0.5rem;
+`
+
+const Component = styled.p`
+  color: rgb(100,100,100);
+  font-size:1.2rem;
+  display: inline-flex;
+  margin-top:2rem;
+  font-weight: 300;
+  margin-bottom:1rem;
+`
+
+const HighLight = {
+  lineHeight:'20px'
+}
+
 const DetailPage = ({ match }) => {
   const [Product, setProduct] = useState([]);
   const [ReviewTitle, setReviewTitle] = useState("");
@@ -288,12 +309,20 @@ const DetailPage = ({ match }) => {
           />
           <TextContainer1>
             <ProdName>{Product[1] ? Product[1][0].ProductName : ""}</ProdName>
+            <HashTag>#{Product[1] ? Product[1][0].ProductF1 : ""} #{Product[1] ? Product[1][0].ProductF2 : ""} #{Product[1] ? Product[1][0].ProductF3 : ""}</HashTag>
             <ProdDetail>
               소비자가격 {Product[1] ? Product[1][0].ProductPrice : ""}원
             </ProdDetail>
             <ProdDetail>
               {Product[1] ? Product[1][0].ProductDetail : ""}
             </ProdDetail>
+            <Component>향수 성분</Component>
+            <Highlighter
+            highlightClassName="YourHighlightClass"
+            style={HighLight}
+            searchWords={["변성알코올", "시트로넬올", "리모넨"]}
+            textToHighlight={Product[1] ? Product[1][0].ProductCompo : ""}>
+            </Highlighter>
           </TextContainer1>
         </ItemContainer>
         <ProdName>이 제품의 리뷰들이에요 🥳</ProdName>

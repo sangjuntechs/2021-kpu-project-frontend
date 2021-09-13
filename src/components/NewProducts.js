@@ -177,7 +177,11 @@ const HashTag = styled.p`
     adaptiveHieght: true,
     centerMode: true,
     centerPadding: "80px",
-    speed: 700,
+    speed: 1200,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: false,
+    pauseOnFocus: false,
   };
 
   const [product1, setProduct1] = useState([]);

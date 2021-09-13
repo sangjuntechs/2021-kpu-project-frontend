@@ -180,7 +180,7 @@ const Individual = ({match}) => {
       url: "/v2/user/me",
       success: (res) => {
         setUserName(res.kakao_account.profile.nickname);
-        setUserAge(res.kakao_account.age_range)
+        setUserAge(res.kakao_account.age_range);
       },
     });
 
