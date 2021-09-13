@@ -5,6 +5,7 @@ import { IoChatbubbleSharp } from "react-icons/io5";
 import Axios from "axios";
 import Modal from "react-modal";
 import ProdUpload from "../components/ProdUpload";
+import { Link } from "react-router-dom";
 
 const AllConatiner = styled.div`
   display: flex;
@@ -157,6 +158,133 @@ const SearchBox = styled.input`
   width: 12rem;
 `;
 
+const SearchProdContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top:1rem;
+  padding:2rem;
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  height: 28rem;
+  box-shadow: 2px 4px 12px gray;
+  border-radius: 15px;
+  margin-right: 3rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.5s;
+  :hover {
+    transform: translateY(-1rem);
+    background-color: rgba(0, 0, 0, 0.05);
+    .font {
+      opacity: 1;
+      transform: translateY(2rem);
+      transition: 0.7s;
+      font-weight: 400;
+    }
+  }
+`;
+
+const ProductImg = styled.img`
+  width: 10rem;
+  height: 10rem;
+  border-radius: 10px;
+  margin: 3rem;
+`;
+
+const CardInContainer1 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(250, 250, 250);
+`;
+
+const CardInContainer2 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+const CardTextBox1 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  text-align: center;
+  padding: 1rem;
+`;
+
+const CardTextBox2 = styled.div`
+  display: flex;
+  align-items: center;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem;
+  height: 100%;
+`;
+
+const CardNameFont = styled.p`
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+`;
+
+const SLevelLawFont = styled.p`
+  font-size: 1rem;
+  color: green;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+const SLevelMidFont = styled.p`
+  font-size: 1rem;
+  color: orange;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+const SLevelHighFont = styled.p`
+  font-size: 1rem;
+  color: red;
+  font-weight: 600;
+  margin-bottom: 1rem;
+`;
+
+const LavelContainer = styled.div`
+  display: flex;
+`;
+
+const AgeLavel = styled.p`
+  padding: 0.4rem;
+  margin: 0.4rem;
+  font-size: 0.8rem;
+  color: rgb(80, 80, 80);
+  font-weight: 600;
+`;
+
+const LookFont = styled.p`
+  opacity: 0;
+  font-weight: 400;
+  position: absolute;
+  bottom: 0;
+  font-size: 0.9rem;
+  color: rgb(50, 50, 50);
+  left: 10px;
+`;
+
+const HashTag = styled.p`
+  color: dodgerblue;
+  font-size: 0.8rem;
+  display: inline-flex;
+  margin-top: 0.5rem;
+`;
+
 const Login = () => {
   const [token, setToken] = useState(null);
   const [userName, setUserName] = useState([]);
@@ -295,7 +423,6 @@ const Login = () => {
               onChange={onChange}
               onKeyPress={searchModalOpen}
             />
-
             {admin ? (
               <ProdButton onClick={modalOpen}>제품 등록</ProdButton>
             ) : (
@@ -312,6 +439,7 @@ const Login = () => {
           </ProfileBox>
 
           <HomePage />
+
           <Modal
             isOpen={openModal}
             overlayClassName="Overlay"
@@ -325,9 +453,88 @@ const Login = () => {
             overlayClassName="Overlay"
             ariaHideApp={false}
           >
+            '{search}' 로 검색한 결과입니다 🧚‍♀️
+            <SearchProdContainer>
             {filterProduct.map((prod) => {
-              return <p>{prod.ProductName}</p>;
+              return (
+
+                <Link to={`/Product/detail/${prod.ProductNum}`} key={prod.ProductNum}>
+                  <Card key={prod.ProductNum}>
+                    <LavelContainer>
+                      <>
+                        <AgeLavel>
+                          {prod.Age_range === "20~29"
+                            ? "최근 20대에게 인기 👍🏻"
+                            : ""}
+                        </AgeLavel>
+                        <AgeLavel>
+                          {prod.Age_range === "30~39"
+                            ? "30대가 많이 찾아요 👍🏻"
+                            : ""}
+                        </AgeLavel>
+                        <AgeLavel>
+                          {prod.Age_range === "40~49"
+                            ? "40대 많이 찾아요 👍🏻"
+                            : ""}
+                        </AgeLavel>
+                        <AgeLavel>
+                          {prod.Age_range === "50~59"
+                            ? "50대 많이 찾아요 👍🏻"
+                            : ""}
+                        </AgeLavel>
+                      </>
+                    </LavelContainer>
+
+                    <CardInContainer1>
+                      <ProductImg
+                        src={`http://3.34.59.69${prod.ProductImg}`}
+                        alt="productImg"
+                      />
+                    </CardInContainer1>
+                    <CardInContainer2>
+                      <CardTextBox1>
+                        <CardNameFont>{prod.ProductName}</CardNameFont>
+                        <p>{prod.ProductPrice} 원</p>
+                        <HashTag>
+                          #{prod.ProductF1} #{prod.ProductF2} #{prod.ProductF3}
+                        </HashTag>
+                      </CardTextBox1>
+                      <CardTextBox2>
+                        <SLevelLawFont>
+                          {prod.ProductSLevel === "low" ? "위험도 낮음" : ""}
+                        </SLevelLawFont>
+                        <p>
+                          {prod.ProductSLevel === "low"
+                            ? "알레르기 반응이 낮은 순한 제품입니다 🥰"
+                            : ""}
+                        </p>
+                        <SLevelMidFont>
+                          {prod.ProductSLevel === "mid" ? "위험도 보통" : ""}
+                        </SLevelMidFont>
+                        <p>
+                          {prod.ProductSLevel === "mid"
+                            ? "체질에 따라 알레르기 반응이 있을수도 있어요 😢"
+                            : ""}
+                        </p>
+                        <SLevelHighFont>
+                          {prod.ProductSLevel === "high" ? "위험도 위험" : ""}
+                        </SLevelHighFont>
+                        <p>
+                          {prod.ProductSLevel === "high"
+                            ? "알레르기 유발 물질이 많습니다 잘 확인하세요 😱"
+                            : ""}
+                        </p>
+                      </CardTextBox2>
+                    </CardInContainer2>
+                    <LookFont className="font">
+                      클릭하면 상세페이지로 이동해요 👍🏻
+                    </LookFont>
+                  </Card>
+                  </Link>
+                
+              );
             })}
+            </SearchProdContainer>
             <ModalCloseBtn onClick={searchModalClose}>❌</ModalCloseBtn>
           </Modal>
         </>
