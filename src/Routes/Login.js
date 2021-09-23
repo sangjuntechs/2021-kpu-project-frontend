@@ -295,6 +295,7 @@ const Login = () => {
   const [search, setSearch] = useState("");
   const [product, setProduct] = useState([]);
   const [filterProduct, setFilterProduct] = useState([]);
+  const [userId, setUserId] = useState('');
 
   const modalOpen = () => {
     setOpenModal(true);
@@ -353,6 +354,7 @@ const Login = () => {
         setToken(window.Kakao.Auth.getAccessToken());
         setUserName(res.kakao_account.profile.nickname);
         setUserImage(res.kakao_account.profile.profile_image_url);
+        setUserId(res.id);
         if (
           res.kakao_account.email === "devjun0421@gmail.com" ||
           res.kakao_account.email === "smg0403@naver.com"
@@ -435,7 +437,9 @@ const Login = () => {
               </p>
               <p>{admin ? "다향의 관리자입니다." : ""}</p>
             </ProfileNameBox>
+            <Link to={`/Member/${userId}`}>
             <ProfileImg src={userImage} alt="유저 얼굴" />
+            </Link>
           </ProfileBox>
 
           <HomePage />
