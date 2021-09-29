@@ -87,6 +87,7 @@ function Review() {
 
   useEffect(() => {
     Axios.get("http://3.34.59.69/Review").then((res) => {
+      console.log(res.data, 'review')
       setReview(res.data.slice(0, 6));
     });
 
