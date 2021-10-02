@@ -5,7 +5,7 @@ const UserPage = ({ match }) => {
 
     const [review, setReview] = useState([]);
 
-    const onClickReview = ({reviewsId}) => {
+    const onClickReview = (reviewsId) => {
         Axios.post(`http://3.34.59.69/Member/${reviewsId}`)
     }
 
@@ -21,10 +21,12 @@ const UserPage = ({ match }) => {
   return <>
     {review.map((reviews) => {
         return(
+          <div key={reviews.ReviewNum}>
             <p>
             {reviews.ReviewTitle}
             <button onClick={onClickReview(reviews.id)}>리뷰 삭제</button>
             </p>
+            </div>
         )
     })}
   </>;

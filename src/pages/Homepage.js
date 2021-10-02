@@ -11,6 +11,7 @@ import Poster from "../Img/posterFinal2.png";
 import styled from "styled-components";
 import "../styles/Modal.css";
 import Logo from "../Img/logorealfinal.jpeg";
+import IndividualSick from "../components/IndividualSick";
 
 const PosterImg = styled.img`
   height: 800px;
@@ -55,6 +56,7 @@ const HomePage = () => {
     </Header>
       <Banner></Banner>
       <Individual></Individual>
+      <IndividualSick></IndividualSick>
       <Review></Review>
       <NewProducts></NewProducts>
       <ManyReview></ManyReview>
